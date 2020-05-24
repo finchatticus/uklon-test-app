@@ -3,6 +3,7 @@
 
     <!-- Errors -->
     <string name="error_unknown">Something error occurred</string>
+    <string name="error_no_internet_connection">No internet connection. Please enable internet.</string>
     <string name="error_action_retry">Retry</string>
 
 </resources>

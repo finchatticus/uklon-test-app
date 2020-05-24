@@ -1,13 +1,11 @@
 package ua.vlad.uklon.presentation.common
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class BaseFragment<T : ViewModel>(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId), BaseView {
 
