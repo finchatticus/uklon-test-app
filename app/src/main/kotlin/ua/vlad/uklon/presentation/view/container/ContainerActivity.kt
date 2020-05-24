@@ -1,6 +1,7 @@
 package ua.vlad.uklon.presentation.view.container
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +22,11 @@ class ContainerActivity : AppCompatActivity(R.layout.activity_container), BaseVi
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, PostsFragment.newInstance())
             .commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.container_menu, menu)
+        return true
     }
 
     override fun showLoading() {

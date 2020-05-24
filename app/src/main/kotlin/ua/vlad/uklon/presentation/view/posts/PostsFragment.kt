@@ -1,6 +1,7 @@
 package ua.vlad.uklon.presentation.view.posts
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -22,11 +23,24 @@ class PostsFragment : BaseFragment<PostsViewModel>(R.layout.fragment_posts) {
 
     private val postsAdapter = PostsAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPostsRecyclerView()
 
         viewModel.fetchPosts()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) =  when (item.itemId) {
+        R.id.action_refresh -> {
+            viewModel.refreshPosts()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun subscribeLiveData() {

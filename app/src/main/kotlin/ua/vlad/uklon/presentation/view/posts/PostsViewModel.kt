@@ -7,16 +7,28 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ua.vlad.uklon.domain.model.Post
 import ua.vlad.uklon.domain.usecase.GetPostsUseCase
+import ua.vlad.uklon.domain.usecase.RefreshPostUseCase
 import ua.vlad.uklon.presentation.common.Status
 import ua.vlad.uklon.presentation.common.StatusLiveData
 
-class PostsViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel() {
+class PostsViewModel(private val getPostsUseCase: GetPostsUseCase, private val refreshPostUseCase: RefreshPostUseCase) : ViewModel() {
 
     val postsLiveData = StatusLiveData<List<Post>>()
 
     fun fetchPosts() {
         postsLiveData.value = Status.Loading
         getPostsUseCase.getAll()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { postsLiveData.value = Status.Success(it) },
+                onError = { postsLiveData.value = Status.Error(it) }
+            )
+    }
+
+    fun refreshPosts() {
+        postsLiveData.value = Status.Loading
+        refreshPostUseCase.refresh()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
