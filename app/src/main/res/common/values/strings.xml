@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">uklon-test-app</string>
+
+    <!-- Errors -->
+    <string name="error_unknown">Something error occurred</string>
+    <string name="error_no_internet_connection">No internet connection. Please enable internet.</string>
+    <string name="error_action_retry">Retry</string>
+
+    <!-- Container -->
+    <string name="container_refresh">Refresh</string>
+
+</resources>
