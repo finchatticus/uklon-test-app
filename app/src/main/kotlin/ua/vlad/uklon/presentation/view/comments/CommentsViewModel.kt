@@ -1,6 +1,5 @@
 package ua.vlad.uklon.presentation.view.comments
 
-import android.util.Log
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import ua.vlad.uklon.domain.model.Comment
 import ua.vlad.uklon.domain.usecase.comment.GetCommentsUseCase
@@ -19,7 +18,6 @@ class CommentsViewModel(
     val commentsLiveData = StatusLiveData<List<Comment>>()
 
     fun fetchComments() {
-        Log.wtf("VLADOSIK", "fetchComments idPost: $idPost")
         disposeAll()
         commentsLiveData.value = Status.Loading
         getCommentsUseCase.getByIdPost(idPost)

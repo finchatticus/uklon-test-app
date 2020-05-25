@@ -1,7 +1,6 @@
 package ua.vlad.uklon.presentation.view.comments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -38,7 +37,6 @@ class CommentsFragment : BaseFragment<CommentsViewModel>(R.layout.fragment_comme
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         idPost = arguments?.getInt(ARG_ID_POST, DEFAULT_ID_POST) ?: DEFAULT_ID_POST
-        Log.wtf("VLADOSIK", "idPost: $idPost")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
