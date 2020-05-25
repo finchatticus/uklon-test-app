@@ -1,24 +1,11 @@
 package ua.vlad.uklon.data.local
 
-import io.reactivex.rxjava3.core.Observable
+import ua.vlad.uklon.data.cache.MemoryCache
 import ua.vlad.uklon.data.source.PostDataSource
 import ua.vlad.uklon.domain.model.Post
 
-class LocalPostDataSource : PostDataSource {
+class LocalPostDataSource(private val cache: MemoryCache<List<Post>>) : PostDataSource {
 
-    private val lock = Any()
-    private var posts = listOf<Post>()
-
-    override fun getPosts(): Observable<List<Post>> {
-        synchronized(lock) {
-            return Observable.just(posts)
-        }
-    }
-
-    override fun put(posts: List<Post>) {
-        synchronized(lock) {
-            this.posts = posts
-        }
-    }
+    override fun getPosts() = this.cache.get()
 
 }

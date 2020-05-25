@@ -2,20 +2,21 @@ package ua.vlad.uklon.data.repository
 
 import io.reactivex.rxjava3.core.Observable
 import ua.vlad.uklon.data.NoInternetConnectionException
+import ua.vlad.uklon.data.cache.MemoryCache
 import ua.vlad.uklon.data.platform.checkInternetConnection
 import ua.vlad.uklon.data.source.PostDataSource
 import ua.vlad.uklon.domain.model.Post
 import ua.vlad.uklon.domain.repository.PostRepository
 
-class PostRepositoryImpl(private val remotePostDataSource: PostDataSource, private val localPostDataSource: PostDataSource) : PostRepository {
+class PostRepositoryImpl(
+    private val remotePostDataSource: PostDataSource,
+    private val postCache: MemoryCache<List<Post>>,
+    private val localPostDataSource: PostDataSource
+) : PostRepository {
 
     override fun getPosts(): Observable<List<Post>> = checkInternetConnection(
         onEnabled = {
-            remotePostDataSource
-                .getPosts()
-                .doOnNext {
-                    localPostDataSource.put(it)
-                }
+            getPostsFromRemoteDataSource()
         },
         onDisabled = {
             localPostDataSource
@@ -28,14 +29,16 @@ class PostRepositoryImpl(private val remotePostDataSource: PostDataSource, priva
 
     override fun refreshPosts(): Observable<List<Post>> = checkInternetConnection(
         onEnabled = {
-            remotePostDataSource
-                .getPosts()
-                .doOnNext {
-                    localPostDataSource.put(it)
-                }
+            getPostsFromRemoteDataSource()
         },
         onDisabled = {
             Observable.error(NoInternetConnectionException())
         })
+
+    private fun getPostsFromRemoteDataSource() = remotePostDataSource
+        .getPosts()
+        .doOnNext {
+            postCache.put(it)
+        }
 
 }

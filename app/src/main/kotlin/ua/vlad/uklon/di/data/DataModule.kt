@@ -9,10 +9,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import ua.vlad.uklon.BuildConfig
+import ua.vlad.uklon.data.cache.MemoryCache
 import ua.vlad.uklon.data.local.LocalPostDataSource
 import ua.vlad.uklon.data.net.api.ApiService
 import ua.vlad.uklon.data.net.source.RemotePostDataSource
 import ua.vlad.uklon.data.repository.PostRepositoryImpl
+import ua.vlad.uklon.domain.model.Post
 import ua.vlad.uklon.domain.repository.PostRepository
 
 val netModule = module {
@@ -44,6 +46,14 @@ val netModule = module {
 
 }
 
+val cacheModule = module {
+
+    single {
+        MemoryCache<List<Post>>()
+    }
+
+}
+
 val dataSourceModule = module {
 
     single {
@@ -51,7 +61,7 @@ val dataSourceModule = module {
     }
 
     single {
-        LocalPostDataSource()
+        LocalPostDataSource(get())
     }
 
 }
@@ -59,7 +69,7 @@ val dataSourceModule = module {
 val repositoryModule = module {
 
     single<PostRepository> {
-        PostRepositoryImpl(get<RemotePostDataSource>(), get<LocalPostDataSource>())
+        PostRepositoryImpl(get<RemotePostDataSource>(), get(), get<LocalPostDataSource>())
     }
 
 }

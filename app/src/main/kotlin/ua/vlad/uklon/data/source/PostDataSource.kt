@@ -7,6 +7,4 @@ interface PostDataSource {
 
     fun getPosts(): Observable<List<Post>>
 
-    fun put(posts: List<Post>)
-
 }
