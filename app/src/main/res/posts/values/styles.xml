@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Posts"/>
+
+    <style name="Posts.Title">
+        <item name="android:textSize">@dimen/rv_title_text_size</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="Posts.Body">
+        <item name="android:textSize">@dimen/rv_body_text_size</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+</resources>
