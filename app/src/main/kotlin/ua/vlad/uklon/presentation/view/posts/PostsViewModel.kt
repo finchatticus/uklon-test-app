@@ -1,6 +1,5 @@
 package ua.vlad.uklon.presentation.view.posts
 
-import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import ua.vlad.uklon.domain.model.Post
 import ua.vlad.uklon.domain.usecase.post.GetPostsUseCase
@@ -18,7 +17,6 @@ class PostsViewModel(
 ) : BaseViewModel() {
 
     val postsLiveData = StatusLiveData<List<Post>>()
-    val openCommentsViewModel = MutableLiveData<Int>()
 
     fun fetchPosts() {
         if (postsLiveData.isLoading())

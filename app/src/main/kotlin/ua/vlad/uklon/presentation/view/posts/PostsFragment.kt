@@ -63,17 +63,10 @@ class PostsFragment : BaseFragment<PostsViewModel>(R.layout.fragment_posts) {
                 }
             }
         })
-        viewModel.openCommentsViewModel.observe(viewLifecycleOwner, Observer {
-            /*if (requireActivity() is ContainerActivity) {
-                (requireActivity() as ContainerActivity).openCommentsScreen(it)
-            }*/
-//            viewModel.openCommentsViewModel.removeObservers(viewLifecycleOwner)
-        })
     }
 
     override fun unSubscribeLiveData() {
         viewModel.postsLiveData.removeObservers(viewLifecycleOwner)
-        viewModel.openCommentsViewModel.removeObservers(viewLifecycleOwner)
     }
 
     private fun initPostsRecyclerView() {
