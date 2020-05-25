@@ -4,7 +4,7 @@ import ua.vlad.uklon.data.cache.MemoryCache
 import ua.vlad.uklon.data.source.PostDataSource
 import ua.vlad.uklon.domain.model.Post
 
-class LocalPostDataSource(private val cache: MemoryCache<List<Post>>) : PostDataSource {
+class LocalPostDataSource(private val cache: MemoryCache<String, List<Post>>) : PostDataSource {
 
     override fun getPosts() = this.cache.get()
 

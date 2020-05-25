@@ -10,7 +10,7 @@ import ua.vlad.uklon.domain.repository.CommentRepository
 
 class CommentRepositoryImpl(
     private val remoteCommentDataSource: CommentDataSource,
-    private val commentsCache: MemoryCache<List<Comment>>,
+    private val commentsCache: MemoryCache<Int, List<Comment>>,
     private val localCommentDataSource: CommentDataSource
 ) : CommentRepository {
 
@@ -38,7 +38,7 @@ class CommentRepositoryImpl(
     private fun getCommentsFromRemoteDataSource(idPost: Int) = remoteCommentDataSource
         .getComments(idPost)
         .doOnNext {
-            commentsCache.put(it)
+            commentsCache.put(it, idPost)
         }
 
 }

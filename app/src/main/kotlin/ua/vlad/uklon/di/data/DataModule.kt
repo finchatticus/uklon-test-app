@@ -60,11 +60,11 @@ val netModule = module {
 val cacheModule = module {
 
     single(named(CacheType.POST)) {
-        MemoryCache<List<Post>>()
+        MemoryCache<String, List<Post>>()
     }
 
     single(named(CacheType.COMMENTS)) {
-        MemoryCache<List<Comment>>()
+        MemoryCache<Int, List<Comment>>()
     }
 
 }
