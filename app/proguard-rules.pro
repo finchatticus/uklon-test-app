@@ -89,3 +89,10 @@
 # Okio
 # Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
 -dontwarn org.codehaus.mojo.animal_sniffer.*
+
+
+# Jackson
+-keep class kotlin.Metadata { *; }
+-keepclassmembers public class ua.vlad.uklon.data.net.dto.** {
+    public synthetic <methods>;
+}
