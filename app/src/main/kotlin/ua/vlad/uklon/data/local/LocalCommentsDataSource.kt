@@ -7,8 +7,7 @@ import ua.vlad.uklon.domain.model.Comment
 
 class LocalCommentsDataSource(private val commentCache: MemoryCache<Int, List<Comment>>) : CommentDataSource {
 
-    override fun getComments(idPost: Int): Observable<List<Comment>> {
-        return this.commentCache.get(idPost)
-    }
+    override fun getComments(idPost: Int): Observable<List<Comment>>
+            = this.commentCache.getObservableDataOrNoInternetExceptionError(idPost)
 
 }
