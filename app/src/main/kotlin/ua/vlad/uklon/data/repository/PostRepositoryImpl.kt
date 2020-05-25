@@ -10,7 +10,7 @@ import ua.vlad.uklon.domain.repository.PostRepository
 
 class PostRepositoryImpl(
     private val remotePostDataSource: PostDataSource,
-    private val postCache: MemoryCache<List<Post>>,
+    private val postCache: MemoryCache<String, List<Post>>,
     private val localPostDataSource: PostDataSource
 ) : PostRepository {
 

@@ -1,18 +1,24 @@
 package ua.vlad.uklon.presentation.view.posts
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import ua.vlad.uklon.domain.model.Post
-import ua.vlad.uklon.domain.usecase.GetPostsUseCase
-import ua.vlad.uklon.domain.usecase.RefreshPostUseCase
+import ua.vlad.uklon.domain.usecase.post.GetPostsUseCase
+import ua.vlad.uklon.domain.usecase.post.RefreshPostUseCase
 import ua.vlad.uklon.presentation.common.BaseViewModel
 import ua.vlad.uklon.presentation.common.Status
 import ua.vlad.uklon.presentation.common.StatusLiveData
 import ua.vlad.uklon.presentation.common.applySchedulers
+import ua.vlad.uklon.presentation.view.container.Router
 
-class PostsViewModel(private val getPostsUseCase: GetPostsUseCase, private val refreshPostUseCase: RefreshPostUseCase) : BaseViewModel() {
+class PostsViewModel(
+    private val getPostsUseCase: GetPostsUseCase,
+    private val refreshPostUseCase: RefreshPostUseCase,
+    private val router: Router
+) : BaseViewModel() {
 
     val postsLiveData = StatusLiveData<List<Post>>()
+    val openCommentsViewModel = MutableLiveData<Int>()
 
     fun fetchPosts() {
         disposeAll()
@@ -39,7 +45,8 @@ class PostsViewModel(private val getPostsUseCase: GetPostsUseCase, private val r
     }
 
     fun onPostClicked(post: Post) {
-        Log.i("PostsViewModel", "onPostClicked: $post")
+        router.openCommentsScreen(post.id)
+//        openCommentsViewModel.value = post.id
     }
 
     fun onErrorActionClicked(e: Throwable) {

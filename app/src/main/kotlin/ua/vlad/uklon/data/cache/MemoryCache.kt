@@ -1,24 +1,26 @@
 package ua.vlad.uklon.data.cache
 
 import io.reactivex.rxjava3.core.Observable
+import ua.vlad.uklon.data.NoInternetConnectionException
 
-class MemoryCache<T> {
+class MemoryCache<K, V> {
 
     private val lock = Any()
-    private var item: T? = null
+    private var item: MutableMap<K?, V> = mutableMapOf()
 
-    fun get(): Observable<T> {
+    fun get(key: K? = null): Observable<V> {
         synchronized(lock) {
-            return when (val immutableItem = item) {
-                null -> Observable.error(NullPointerException())
-                else -> Observable.just(immutableItem)
+            return try {
+                Observable.just(item.getValue(key))
+            } catch (e: NoSuchElementException) {
+                Observable.error(NoInternetConnectionException())
             }
         }
     }
 
-    fun put(item: T) {
+    fun put(value: V, key: K? = null) {
         synchronized(lock) {
-            this.item = item
+            this.item.put(key, value)
         }
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Comments"/>
+
+    <style name="Comments.User">
+        <item name="android:textSize">@dimen/rv_comment_user_text_size</item>
+        <item name="android:textColor">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="Comments.Body">
+        <item name="android:textSize">@dimen/rv_comment_body_text_size</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+</resources>
