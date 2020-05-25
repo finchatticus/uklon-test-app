@@ -25,7 +25,8 @@ android {
             main.java.srcDirs += 'src/main/kotlin'
             res.srcDirs = [
                     'src/main/res/common',
-                    'src/main/res/posts'
+                    'src/main/res/posts',
+                    'src/main/res/comments',
             ]
         }
     }

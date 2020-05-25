@@ -1,4 +1,4 @@
-package ua.vlad.uklon.domain.usecase
+package ua.vlad.uklon.domain.usecase.post
 
 import ua.vlad.uklon.domain.repository.PostRepository
 

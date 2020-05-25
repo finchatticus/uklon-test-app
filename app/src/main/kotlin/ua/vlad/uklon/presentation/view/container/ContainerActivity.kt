@@ -10,18 +10,16 @@ import ua.vlad.uklon.R
 import ua.vlad.uklon.data.NoInternetConnectionException
 import ua.vlad.uklon.presentation.common.BaseView
 import ua.vlad.uklon.presentation.common.OnErrorActionClicked
-import ua.vlad.uklon.presentation.view.posts.PostsFragment
 
 
 class ContainerActivity : AppCompatActivity(R.layout.activity_container), BaseView {
 
-    private var snackbar: Snackbar? = null
+    private val router: Router by lazy { ContainerRouter(this) }
+    private var snackbarError: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, PostsFragment.newInstance())
-            .commit()
+        router.openCommentsScreen()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,15 +40,15 @@ class ContainerActivity : AppCompatActivity(R.layout.activity_container), BaseVi
             is NoInternetConnectionException -> R.string.error_no_internet_connection
             else -> R.string.error_unknown
         }
-        snackbar = Snackbar.make(window.decorView.findViewById(android.R.id.content), resId, Snackbar.LENGTH_INDEFINITE)
+        snackbarError = Snackbar.make(window.decorView.findViewById(android.R.id.content), resId, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.error_action_retry) {
                 onErrorActionClicked?.invoke()
             }
-        snackbar?.show()
+        snackbarError?.show()
     }
 
     override fun hideError() {
-        snackbar?.dismiss()
+        snackbarError?.dismiss()
     }
 
 }
