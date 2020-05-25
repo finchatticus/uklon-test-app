@@ -18,7 +18,8 @@ class CommentsViewModel(
     val commentsLiveData = StatusLiveData<List<Comment>>()
 
     fun fetchComments() {
-        disposeAll()
+        if (commentsLiveData.isLoading())
+            return
         commentsLiveData.value = Status.Loading
         getCommentsUseCase.getByIdPost(idPost)
             .applySchedulers()
@@ -30,7 +31,8 @@ class CommentsViewModel(
     }
 
     fun refreshComments() {
-        disposeAll()
+        if (commentsLiveData.isLoading())
+            return
         commentsLiveData.value = Status.Loading
         refreshCommentsUseCase.refreshByIdPost(idPost)
             .applySchedulers()

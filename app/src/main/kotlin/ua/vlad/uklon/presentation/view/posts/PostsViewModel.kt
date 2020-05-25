@@ -21,7 +21,8 @@ class PostsViewModel(
     val openCommentsViewModel = MutableLiveData<Int>()
 
     fun fetchPosts() {
-        disposeAll()
+        if (postsLiveData.isLoading())
+            return
         postsLiveData.value = Status.Loading
         getPostsUseCase.getAll()
             .applySchedulers()
@@ -33,7 +34,8 @@ class PostsViewModel(
     }
 
     fun refreshPosts() {
-        disposeAll()
+        if (postsLiveData.isLoading())
+            return
         postsLiveData.value = Status.Loading
         refreshPostUseCase.refresh()
             .applySchedulers()
@@ -46,7 +48,6 @@ class PostsViewModel(
 
     fun onPostClicked(post: Post) {
         router.openCommentsScreen(post.id)
-//        openCommentsViewModel.value = post.id
     }
 
     fun onErrorActionClicked(e: Throwable) {
