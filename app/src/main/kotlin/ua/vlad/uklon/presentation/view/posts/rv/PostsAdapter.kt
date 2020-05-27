@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ua.vlad.uklon.R
-import ua.vlad.uklon.domain.model.Post
+import ua.vlad.uklon.presentation.model.PostVO
 
-typealias OnPostClicked = (post: Post) -> Unit
+typealias OnPostClicked = (post: PostVO) -> Unit
 
 class PostsAdapter : RecyclerView.Adapter<PostViewHolder>() {
 
-    private var posts = listOf<Post>()
+    private var posts = listOf<PostVO>()
     var onPostClicked: OnPostClicked? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -24,7 +24,7 @@ class PostsAdapter : RecyclerView.Adapter<PostViewHolder>() {
 
     override fun getItemCount() = posts.size
 
-    fun addPosts(posts: List<Post>) {
+    fun addPosts(posts: List<PostVO>) {
         this.posts = posts
         notifyDataSetChanged()
     }
