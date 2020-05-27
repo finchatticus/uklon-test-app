@@ -18,7 +18,7 @@ class CommentsViewModel(
     val commentsLiveData = StatusLiveData<List<Comment>>()
 
     fun fetchComments() {
-        if (commentsLiveData.isLoading())
+        if (commentsLiveData.isLoadingOrSuccess())
             return
         commentsLiveData.value = Status.Loading
         getCommentsUseCase.getByIdPost(idPost)
@@ -31,7 +31,7 @@ class CommentsViewModel(
     }
 
     fun refreshComments() {
-        if (commentsLiveData.isLoading())
+        if (commentsLiveData.isLoadingOrSuccess())
             return
         commentsLiveData.value = Status.Loading
         refreshCommentsUseCase.refreshByIdPost(idPost)

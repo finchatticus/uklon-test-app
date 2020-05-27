@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_posts.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 import ua.vlad.uklon.R
 import ua.vlad.uklon.presentation.common.BaseFragment
@@ -22,7 +22,7 @@ class PostsFragment : BaseFragment<PostsViewModel>(R.layout.fragment_posts) {
         fun newInstance(): PostsFragment = PostsFragment()
     }
 
-    override val viewModel by viewModel<PostsViewModel>{ parametersOf(ContainerRouter(requireActivity() as AppCompatActivity)) }
+    override val viewModel by stateViewModel<PostsViewModel>{ parametersOf(ContainerRouter(requireActivity() as AppCompatActivity)) }
 
     private val postsAdapter = PostsAdapter()
 
